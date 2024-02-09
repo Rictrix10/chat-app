@@ -1,0 +1,27 @@
+
+
+services:
+
+
+  web-socket-server:
+    container_name: web-socket-server
+    build: docker/images/python
+    volumes:
+      - ./src/web-socket/server:/usr/src/app
+    environment:
+      USE_DEV_MODE: ${USE_DEV_MODE}
+      WEB_SOCKET_SERVER_PORT: ${WEB_SOCKET_SERVER_PORT}
+
+  web-socket-client:
+    container_name: web-socket-client
+    build: docker/images/python
+    volumes:
+      - ./src/web-socket/client:/usr/src/app
+    environment:
+      USE_DEV_MODE: ${USE_DEV_MODE}
+      WEB_SOCKET_SERVER_PORT: ${WEB_SOCKET_SERVER_PORT}
+    depends_on:
+      - web-socket-server
+
+
+
